@@ -44,4 +44,3 @@ Usage
 | textColor   | data-text-color  | Color of the text                                              | #ffffff                                                                                            |
 | fontSize    | data-font-size   | Font size of the character(s)                                  | 60                                                                                                 |
 | fontWeight  | data-font-weight | Font weight of the character(s)                                | 400                                                                                                |
-| fontFamilly | font-family      | Custom font family for the character(s)                        | HelveticaNeue-Light,Helvetica Neue Light,Helvetica Neue,Helvetica, Arial,Lucida Grande, sans-serif |
