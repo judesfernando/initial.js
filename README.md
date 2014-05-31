@@ -29,7 +29,7 @@ Usage
  > $('.profile').initial(); 
 
 
-  [1]: judelicio.us/initial/
+  [1]: http://judelicio.us/initial/
   
   Options
 --
