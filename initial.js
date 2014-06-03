@@ -47,11 +47,11 @@
                 'height': settings.height+'px'
             });
 
-            svg.append().append(cobj);
+            svg.append(cobj);
            // svg.append(group);
-            var svgHtml =  encodeURIComponent( $('<div>').append(svg.clone()).html() );
+            var svgHtml =  window.btoa( $('<div>').append(svg.clone()).html() );
 
-            e.attr("src", 'data:image/svg+xml;utf8,' + svgHtml);
+            e.attr("src", 'data:image/svg+xml;base64,' + svgHtml);
 
         })
     };
