@@ -11,7 +11,6 @@ Browser compatibility
 
  - Chrome
  - Firefox
- - IE 9+
  - Opera 9+
  - Safari 3.2+
  - iOS Safari 3.2+
