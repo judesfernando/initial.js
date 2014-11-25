@@ -49,7 +49,7 @@
 
             svg.append(cobj);
            // svg.append(group);
-            var svgHtml =  window.btoa( $('<div>').append(svg.clone()).html() );
+            var svgHtml = window.btoa(unescape(encodeURIComponent($('<div>').append(svg.clone()).html())));
 
             e.attr("src", 'data:image/svg+xml;base64,' + svgHtml);
 
