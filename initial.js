@@ -36,7 +36,7 @@
                 'font-size': settings.fontSize+'px',
             });
 
-            var colorIndex = Math.floor((c.charCodeAt(0) - 65) / colors.length);
+            var colorIndex = Math.floor((c.charCodeAt(0) - 65) % colors.length);
 
             var svg = $('<svg></svg>').attr({
                 'xmlns': 'http://www.w3.org/2000/svg',
