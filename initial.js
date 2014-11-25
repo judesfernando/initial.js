@@ -36,20 +36,22 @@
                 'font-size': settings.fontSize+'px',
             });
 
+            var colorIndex = Math.floor((c.charCodeAt(0) - 65) / colors.length);
+
             var svg = $('<svg></svg>').attr({
                 'xmlns': 'http://www.w3.org/2000/svg',
                 'pointer-events':'none',
                 'width': settings.width,
                 'height': settings.height
             }).css({
-                'background-color':colors[c.charCodeAt(0) - 65],
+                'background-color': colors[colorIndex],
                 'width': settings.width+'px',
                 'height': settings.height+'px'
             });
 
             svg.append(cobj);
            // svg.append(group);
-            var svgHtml =  window.btoa( $('<div>').append(svg.clone()).html() );
+            var svgHtml = window.btoa(unescape(encodeURIComponent($('<div>').append(svg.clone()).html())));
 
             e.attr("src", 'data:image/svg+xml;base64,' + svgHtml);
 
