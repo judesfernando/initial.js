@@ -14,13 +14,24 @@
                 textColor: '#ffffff',
                 height: 100,
                 width: 100,
-                fontSize: 60,
+                fontSize: 0.45, // default font size is 45% of height
                 fontWeight: 400,
                 fontFamily: 'HelveticaNeue-Light,Helvetica Neue Light,Helvetica Neue,Helvetica, Arial,Lucida Grande, sans-serif'
             }, options);
 
             // overriding from data attributes
             settings = $.extend(settings, e.data());
+            
+            if (settings.fontSize < 1) {
+				// if font size < 1 presume that this is a percentage of height
+				// e.g. - settings.fontSize: .45
+				settings.fontSize = parseInt(settings.height * settings.fontSize);
+			}
+			else if (settings.fontSize.toString().indexOf("%") > 1) {
+				// if font size has % character calculate it from height
+				// e.g. - settings.fontSize: "45%"
+				settings.fontSize = parseInt(settings.height * (parseInt(settings.fontSize.replace("%", "")) / 100));
+			}
 
             // making the text object
             var c = settings.name.substr(0, settings.charCount).toUpperCase();
@@ -33,7 +44,7 @@
                 'font-family': settings.fontFamily
             }).html(c).css({
                 'font-weight': settings.fontWeight,
-                'font-size': settings.fontSize+'px',
+                'font-size': settings.fontSize + 'px',
             });
 
             var colorIndex = Math.floor((c.charCodeAt(0) - 65) % colors.length);
@@ -45,8 +56,8 @@
                 'height': settings.height
             }).css({
                 'background-color': colors[colorIndex],
-                'width': settings.width+'px',
-                'height': settings.height+'px'
+                'width': settings.width + 'px',
+                'height': settings.height + 'px'
             });
 
             svg.append(cobj);
