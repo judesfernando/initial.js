@@ -43,3 +43,4 @@ Usage
 | textColor   | data-text-color  | Color of the text                                              | #ffffff                                                                                            |
 | fontSize    | data-font-size   | Font size of the character(s)                                  | 60                                                                                                 |
 | fontWeight  | data-font-weight | Font weight of the character(s)                                | 400                                                                                                |
+| radius      | data-radius      | Rounded corners                                                | 0                                                                                                  |

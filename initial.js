@@ -16,7 +16,8 @@
                 width: 100,
                 fontSize: 60,
                 fontWeight: 400,
-                fontFamily: 'HelveticaNeue-Light,Helvetica Neue Light,Helvetica Neue,Helvetica, Arial,Lucida Grande, sans-serif'
+                fontFamily: 'HelveticaNeue-Light,Helvetica Neue Light,Helvetica Neue,Helvetica, Arial,Lucida Grande, sans-serif',
+                radius: 0
             }, options);
 
             // overriding from data attributes
@@ -46,7 +47,9 @@
             }).css({
                 'background-color': colors[colorIndex],
                 'width': settings.width+'px',
-                'height': settings.height+'px'
+                'height': settings.height+'px',
+                'border-radius': settings.radius+'px',
+                '-moz-border-radius': settings.radius+'px'
             });
 
             svg.append(cobj);
