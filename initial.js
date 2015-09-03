@@ -3,6 +3,7 @@
 
         // Defining Colors
         var colors = ["#1abc9c", "#16a085", "#f1c40f", "#f39c12", "#2ecc71", "#27ae60", "#e67e22", "#d35400", "#3498db", "#2980b9", "#e74c3c", "#c0392b", "#9b59b6", "#8e44ad", "#bdc3c7", "#34495e", "#2c3e50", "#95a5a6", "#7f8c8d", "#ec87bf", "#d870ad", "#f69785", "#9ba37e", "#b49255", "#b49255", "#a94136"];
+        var finalColor;
 
         return this.each(function () {
 
@@ -10,6 +11,7 @@
             var settings = $.extend({
                 // Default settings
                 name: 'Name',
+                color: null,
                 seed: 0,
                 charCount: 1,
                 textColor: '#ffffff',
@@ -38,7 +40,12 @@
                 'font-size': settings.fontSize+'px',
             });
 
-            var colorIndex = Math.floor((c.charCodeAt(0) + settings.seed) % colors.length);
+            if(settings.color == null){
+                var colorIndex = Math.floor((c.charCodeAt(0) + settings.seed) % colors.length);
+                finalColor = colors[colorIndex]
+            }else{
+                finalColor = settings.color
+            }
 
             var svg = $('<svg></svg>').attr({
                 'xmlns': 'http://www.w3.org/2000/svg',
@@ -46,7 +53,7 @@
                 'width': settings.width,
                 'height': settings.height
             }).css({
-                'background-color': colors[colorIndex],
+                'background-color': finalColor,
                 'width': settings.width+'px',
                 'height': settings.height+'px',
                 'border-radius': settings.radius+'px',
