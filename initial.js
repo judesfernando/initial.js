@@ -3,6 +3,7 @@
 
         // Defining Colors
         var colors = ["#1abc9c", "#16a085", "#f1c40f", "#f39c12", "#2ecc71", "#27ae60", "#e67e22", "#d35400", "#3498db", "#2980b9", "#e74c3c", "#c0392b", "#9b59b6", "#8e44ad", "#bdc3c7", "#34495e", "#2c3e50", "#95a5a6", "#7f8c8d", "#ec87bf", "#d870ad", "#f69785", "#9ba37e", "#b49255", "#b49255", "#a94136"];
+      
 
         return this.each(function () {
 
@@ -12,20 +13,34 @@
                 name: 'Name',
                 seed: 0,
                 charCount: 1,
+                wordCount: 2,
                 textColor: '#ffffff',
                 height: 100,
                 width: 100,
                 fontSize: 60,
                 fontWeight: 400,
                 fontFamily: 'HelveticaNeue-Light,Helvetica Neue Light,Helvetica Neue,Helvetica, Arial,Lucida Grande, sans-serif',
-                radius: 0
+                radius: 0,
+                src: null
+
             }, options);
 
             // overriding from data attributes
             settings = $.extend(settings, e.data());
 
+            if (settings.src) {
+              e.css({
+                'width': settings.width+'px',
+                'height': settings.height+'px',
+                'border-radius': settings.radius+'px',
+                '-moz-border-radius': settings.radius+'px'
+              }).attr("src", settings.src);
+
+              return;
+            }
+
             // making the text object
-            var c = settings.name.substr(0, settings.charCount).toUpperCase();
+            var c = settings.name.split(" ", settings.wordCount).map(function (str) { return str.substr(0, settings.charCount).toUpperCase(); }).join("");
             var cobj = $('<text text-anchor="middle"></text>').attr({
                 'y': '50%',
                 'x': '50%',
@@ -35,7 +50,7 @@
                 'font-family': settings.fontFamily
             }).html(c).css({
                 'font-weight': settings.fontWeight,
-                'font-size': settings.fontSize+'px',
+                'font-size': settings.fontSize+'px'
             });
 
             var colorIndex = Math.floor((c.charCodeAt(0) + settings.seed) % colors.length);
@@ -58,7 +73,6 @@
             var svgHtml = window.btoa(unescape(encodeURIComponent($('<div>').append(svg.clone()).html())));
 
             e.attr("src", 'data:image/svg+xml;base64,' + svgHtml);
-
         })
     };
 
