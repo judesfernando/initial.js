@@ -1,10 +1,5 @@
 (function ($) {
     $.fn.initial = function (options) {
-
-        // Defining Colors
-        var colors = ["#1abc9c", "#16a085", "#f1c40f", "#f39c12", "#2ecc71", "#27ae60", "#e67e22", "#d35400", "#3498db", "#2980b9", "#e74c3c", "#c0392b", "#9b59b6", "#8e44ad", "#bdc3c7", "#34495e", "#2c3e50", "#95a5a6", "#7f8c8d", "#ec87bf", "#d870ad", "#f69785", "#9ba37e", "#b49255", "#b49255", "#a94136"];
-      
-
         return this.each(function () {
 
             var e = $(this);
@@ -39,6 +34,8 @@
               return;
             }
 
+            settings.name = settings.name || 'DaMaVaNd';
+
             // making the text object
             var c = settings.name.split(" ", settings.wordCount).map(function (str) { return str.substr(0, settings.charCount).toUpperCase(); }).join("");
             var cobj = $('<text text-anchor="middle"></text>').attr({
@@ -53,7 +50,37 @@
                 'font-size': settings.fontSize+'px'
             });
 
-            var colorIndex = Math.floor((c.charCodeAt(0) + settings.seed) % colors.length);
+            function unique(name) {
+              return name.split('').map(function (v, k) { return v.charCodeAt(0) * Math.pow(2, k); }).reduce(function (v1, v2) { return v1 + v2; }) / Math.pow(3, name.length);
+            }
+
+            function normalize(num) {
+              var border = 3;
+
+              if (num < border) {
+                while (num < border) {
+                  num *= 2 * border;
+                }
+              } else {
+                while (parseInt(num) > border) {
+                  num /= 2 * border;
+                }
+              }
+
+              return num;
+            }
+
+            function distribute(x, sigma) {
+              return (Math.sin(x * sigma) * Math.cos(x / sigma) * 0.5) + 0.5;
+            }
+
+            var sigma = normalize(unique(settings.name)) * (settings.seed + 1);
+
+            var color = {
+              red: Math.floor(distribute(settings.name.length * (19 / 11), sigma) * 256),
+              green: Math.floor(distribute(settings.name.length * (13 / 11), sigma) * 256),
+              blue: Math.floor(distribute(settings.name.length * (7 / 11), sigma) * 256)
+            };
 
             var svg = $('<svg></svg>').attr({
                 'xmlns': 'http://www.w3.org/2000/svg',
@@ -61,7 +88,7 @@
                 'width': settings.width,
                 'height': settings.height
             }).css({
-                'background-color': colors[colorIndex],
+                'background-color': '#' + Number(color.red).toString(16) + Number(color.green).toString(16) + Number(color.blue).toString(16),
                 'width': settings.width+'px',
                 'height': settings.height+'px',
                 'border-radius': settings.radius+'px',

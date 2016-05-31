@@ -39,10 +39,12 @@ Usage
 | name        | data-name        | Name of the user which the profile picture should be generated | Name                                                                                               |
 | height      | data-height      | Height of the picture                                          | 100                                                                                                |
 | width       | data-width       | Width of the picture                                           | 100                                                                                                |
-| charCount   | data-char-count  | Number of characherts to be shown in the picture.              | 1                                                                                                  |
+| charCount   | data-char-count  | Number of characters to be shown in the picture.               | 1                                                                                                  |
+| wordCount   | data-word-count  | Number of Words to be initialized in the picture.              | 2                                                                                                  |
 | textColor   | data-text-color  | Color of the text                                              | #ffffff                                                                                            |
 | fontSize    | data-font-size   | Font size of the character(s)                                  | 60                                                                                                 |
 | fontWeight  | data-font-weight | Font weight of the character(s)                                | 400                                                                                                |
 | radius      | data-radius      | Rounded corners                                                | 0                                                                                                  |
 | seed        | data-seed        | Number to randomize the background color                       | 0                                                                                                  |
+| src         | data-src         | Image url to load instead of initial text if available         | null                                                                                               |
 
