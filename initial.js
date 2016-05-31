@@ -30,12 +30,14 @@
                 'border-radius': settings.radius+'px',
                 '-moz-border-radius': settings.radius+'px'
               }).attr("src", settings.src);
-              
+
               return;
             }
 
+            settings.name = settings.name || 'DaMaVaNd';
+
             // making the text object
-            var c = settings.name ? settings.name.split(" ", settings.wordCount).map(function (str) { return str.substr(0, settings.charCount).toUpperCase(); }).join("") : '';
+            var c = settings.name.split(" ", settings.wordCount).map(function (str) { return str.substr(0, settings.charCount).toUpperCase(); }).join("");
             var cobj = $('<text text-anchor="middle"></text>').attr({
                 'y': '50%',
                 'x': '50%',
@@ -49,7 +51,7 @@
             });
 
             function unique(name) {
-              return name ? name.split('').map(function (v, k) { return v.charCodeAt(0) * Math.pow(2, k); }).reduce(function (v1, v2) { return v1 + v2; }) / Math.pow(3, name.length) : 'DaMaVaNd';
+              return name.split('').map(function (v, k) { return v.charCodeAt(0) * Math.pow(2, k); }).reduce(function (v1, v2) { return v1 + v2; }) / Math.pow(3, name.length);
             }
 
             function normalize(num) {
