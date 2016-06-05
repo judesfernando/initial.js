@@ -10,6 +10,8 @@
                 charCount: 1,
                 wordCount: 2,
                 textColor: '#ffffff',
+                saturation: 0.8,
+                brightness: 0.5,
                 height: 100,
                 width: 100,
                 fontSize: 60,
@@ -114,20 +116,26 @@
 
               var m = brightness - chroma;
               var color = {
-                red: faceColor.red + m,
-                green: faceColor.green + m,
-                blue: faceColor.blue + m
+                red: Math.floor((faceColor.red + m) * 256),
+                green: Math.floor((faceColor.green + m) * 256),
+                blue: Math.floor((faceColor.blue + m) * 256)
               };
 
-              return Number(color.red).toString(16) + Number(color.green).toString(16) + Number(color.blue).toString(16);
+              var hex = {
+                red: (color.red < 16 ? '0' : '') + Number(color.red).toString(16),
+                green: (color.green < 16 ? '0' : '') + Number(color.green).toString(16),
+                blue: (color.blue < 16 ? '0' : '') + Number(color.blue).toString(16)
+              };
+
+              return hex.red + hex.green + hex.blue;
             }
 
             var sigma = normalize(unique(settings.name)) * (settings.seed + 1);
 
             var color = {
               hue: distribute(settings.name.length, sigma),
-              saturation: 0.8, // 0: White
-              brightness: 0.3 // 0: Black
+              saturation: settings.saturation, // 0: White
+              brightness: settings.brightness // 0: Black
             };
 
             var svg = $('<svg></svg>').attr({
