@@ -74,12 +74,60 @@
               return (Math.sin(x * sigma) * Math.cos(x / sigma) * 0.5) + 0.5;
             }
 
+            function hsv2rgb(hue, saturation, brightness) {
+              var chroma = brightness * saturation;
+              var faceColor = { red: 0, green: 0, blue: 0 };
+              var hp = hue * 6;
+              var x = chroma * (1 - Math.abs((hp % 2) - 1));
+              switch (Math.floor(hp)) {
+                case 0:
+                  faceColor.red = chroma;
+                  faceColor.green = x;
+                  break;
+
+                case 1:
+                  faceColor.red = x;
+                  faceColor.green = chroma;
+                  break;
+
+                case 2:
+                  faceColor.green = chroma;
+                  faceColor.blue = x;
+                  break;
+
+                case 3:
+                  faceColor.green = x;
+                  faceColor.blue = chroma;
+                  break;
+
+                case 4:
+                  faceColor.red = x;
+                  faceColor.green = chroma;
+                  break;
+
+                case 5:
+                case 6:
+                  faceColor.red = chroma;
+                  faceColor.green = x;
+                  break;
+              }
+
+              var m = brightness - chroma;
+              var color = {
+                red: faceColor.red + m,
+                green: faceColor.green + m,
+                blue: faceColor.blue + m
+              };
+
+              return Number(color.red).toString(16) + Number(color.green).toString(16) + Number(color.blue).toString(16);
+            }
+
             var sigma = normalize(unique(settings.name)) * (settings.seed + 1);
 
             var color = {
-              red: Math.floor(distribute(settings.name.length * (19 / 11), sigma) * 256),
-              green: Math.floor(distribute(settings.name.length * (13 / 11), sigma) * 256),
-              blue: Math.floor(distribute(settings.name.length * (7 / 11), sigma) * 256)
+              hue: distribute(settings.name.length, sigma),
+              saturation: 0.8, // 0: White
+              brightness: 0.3 // 0: Black
             };
 
             var svg = $('<svg></svg>').attr({
@@ -88,7 +136,7 @@
                 'width': settings.width,
                 'height': settings.height
             }).css({
-                'background-color': '#' + Number(color.red).toString(16) + Number(color.green).toString(16) + Number(color.blue).toString(16),
+                'background-color': '#' + hsv2rgb(color.hue, color.saturation, color.brightness),
                 'width': settings.width+'px',
                 'height': settings.height+'px',
                 'border-radius': settings.radius+'px',
@@ -100,7 +148,7 @@
             var svgHtml = window.btoa(unescape(encodeURIComponent($('<div>').append(svg.clone()).html())));
 
             e.attr("src", 'data:image/svg+xml;base64,' + svgHtml);
-        })
+        });
     };
 
 }(jQuery));
