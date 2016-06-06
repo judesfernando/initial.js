@@ -47,4 +47,5 @@ Usage
 | radius      | data-radius      | Rounded corners                                                | 0                                                                                                  |
 | seed        | data-seed        | Number to randomize the background color                       | 0                                                                                                  |
 | src         | data-src         | Image url to load instead of initial text if available         | null                                                                                               |
-
+| saturation  | data-saturation  | Background color saturation; Between 0 and 1                   | 0.8                                                                                              |
+| brightness  | data-brightness  | Background color brightness; Between 0 and 1                   | 0.5                                                                                              |
