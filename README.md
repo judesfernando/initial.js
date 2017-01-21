@@ -4,6 +4,7 @@ Simple jQuery plugin to make Gmail like text avatars for profile pictures.
 
 ---
 
+
 [Demo][1]
 --
 Browser compatibility
@@ -46,3 +47,13 @@ Usage
 | radius      | data-radius      | Rounded corners                                                | 0                                                                                                  |
 | seed        | data-seed        | Number to randomize the background color                       | 0                                                                                                  |
 | color        | data-color        | Background color of the profile picture that should be generated | null                                                                                               |
+
+--
+Element for polymer project
+---
+[View on Webcomponents.org](https://www.webcomponents.org/element/dyazincahya/initial-avatar)
+
+### How to install
+```markdown
+bower install --save initial-avatar
+```
