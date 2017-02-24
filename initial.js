@@ -1,33 +1,14 @@
 (function ($) {
 
-    var unicode_charAt = function(string, index) {
-        var first = string.charCodeAt(index);
-        var second;
-        if (first >= 0xD800 && first <= 0xDBFF && string.length > index + 1) {
-            second = string.charCodeAt(index + 1);
-            if (second >= 0xDC00 && second <= 0xDFFF) {
-                return string.substring(index, index + 2);
-            }
-        }
-        return string[index];
-    };
+    var getInitial = function(fullName, maxCharCount) {
+        var pieces = fullName.split(" ");
+        var initials = "";
 
-    var unicode_slice = function(string, start, end) {
-        var accumulator = "";
-        var character;
-        var stringIndex = 0;
-        var unicodeIndex = 0;
-        var length = string.length;
-
-        while (stringIndex < length) {
-            character = unicode_charAt(string, stringIndex);
-            if (unicodeIndex >= start && unicodeIndex < end) {
-                accumulator += character;
-            }
-            stringIndex += character.length;
-            unicodeIndex += 1;
+        for(var x = 0; x < pieces.length; x++) {
+            initials += pieces [x].substring(0, maxCharCount);
         }
-        return accumulator;
+
+        return initials;
     };
 
     $.fn.initial = function (options) {
@@ -58,7 +39,7 @@
             settings = $.extend(settings, e.data());
 
             // making the text object
-            var c = unicode_slice(settings.name, 0, settings.charCount).toUpperCase();
+            var c = getInitial(settings.name, settings.charCount).toUpperCase();
             var cobj = $('<text text-anchor="middle"></text>').attr({
                 'y': '50%',
                 'x': '50%',
@@ -71,11 +52,17 @@
                 'font-size': settings.fontSize+'px',
             });
 
-            if(settings.color == null){
-                var colorIndex = Math.floor((c.charCodeAt(0) + settings.seed) % colors.length);
-                finalColor = colors[colorIndex]
+            var colorIndex ='';
+            if(settings.color != null){
+                if( Object.prototype.toString.call( settings.color ) === '[object Array]' ) {
+                    colorIndex = Math.floor((c.charCodeAt(0) + settings.seed) % settings.color.length);
+                    finalColor = settings.color[colorIndex];
+                } else {
+                    finalColor = settings.color
+                }
             }else{
-                finalColor = settings.color
+                colorIndex = Math.floor((c.charCodeAt(0) + settings.seed) % colors.length);
+                finalColor = colors[colorIndex]
             }
 
             var svg = $('<svg></svg>').attr({
@@ -92,7 +79,7 @@
             });
 
             svg.append(cobj);
-           // svg.append(group);
+            // svg.append(group);
             var svgHtml = window.btoa(unescape(encodeURIComponent($('<div>').append(svg.clone()).html())));
 
             e.attr("src", 'data:image/svg+xml;base64,' + svgHtml);
