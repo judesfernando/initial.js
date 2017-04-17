@@ -27,7 +27,6 @@
             stringIndex += character.length;
             unicodeIndex += 1;
         }
-
         return accumulator;
     };
 
