@@ -58,7 +58,7 @@
             settings = $.extend(settings, e.data());
 
             // making the text object
-            var c = unicode_slice(settings.name, 0, settings.charCount).toUpperCase();
+            var c = unicode_slice('' + settings.name, 0, settings.charCount).toUpperCase();
             var cobj = $('<text text-anchor="middle"></text>').attr({
                 'y': '50%',
                 'x': '50%',
