@@ -28,7 +28,6 @@
             unicodeIndex += 1;
         }
 
-        console.log(accumulator)
         return accumulator;
     };
 
