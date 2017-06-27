@@ -78,20 +78,21 @@
                 finalColor = settings.color
             }
 
+            var rectangle = $('<rect>').attr({
+                'height': settings.height,
+                'width': settings.width,
+                'rx' : settings.radius,
+                'fill': finalColor
+            });
+
             var svg = $('<svg></svg>').attr({
                 'xmlns': 'http://www.w3.org/2000/svg',
                 'pointer-events':'none',
                 'width': settings.width,
                 'height': settings.height
-            }).css({
-                'background-color': finalColor,
-                'width': settings.width+'px',
-                'height': settings.height+'px',
-                'border-radius': settings.radius+'px',
-                '-moz-border-radius': settings.radius+'px'
             });
-
-            svg.append(cobj);
+            
+            svg.append(rectangle, cobj);
            // svg.append(group);
             var svgHtml = window.btoa(unescape(encodeURIComponent($('<div>').append(svg.clone()).html())));
 
