@@ -45,6 +45,7 @@
                 color: null,
                 seed: 0,
                 charCount: 1,
+                lastName: null,
                 textColor: '#ffffff',
                 height: 100,
                 width: 100,
@@ -58,7 +59,13 @@
             settings = $.extend(settings, e.data());
 
             // making the text object
-            var c = unicode_slice(settings.name, 0, settings.charCount).toUpperCase();
+
+            if(settings.lastName){
+              var c = unicode_slice(settings.name, 0, 1).toUpperCase() + unicode_slice(settings.lastName, 0, 1).toUpperCase();
+            } else {
+              var c = unicode_slice(settings.name, 0, settings.charCount).toUpperCase();
+            }
+
             var cobj = $('<text text-anchor="middle"></text>').attr({
                 'y': '50%',
                 'x': '50%',
